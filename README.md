@@ -1,5 +1,5 @@
 Initialize:
-npm i
+npm i, 
 npm install autoprefixer
 
 Run:
