@@ -2,10 +2,10 @@ import { InfoBox } from '@react-google-maps/api';
 
 import { Button, Flex } from 'antd';
 
-import { HStack } from '../../../styled-system/jsx/hstack';
-import { Box } from '../../../styled-system/jsx/box';
+import { HStack } from 'panda';
+import { Box } from 'panda';
 import { InstagramOutlined, FacebookOutlined, XOutlined } from '@ant-design/icons';
-import { IconLinks } from './IconLinks';
+import { IconLinks } from './../features/IconLinks';
 interface FooterProps {}
 
 export function Footer(props: FooterProps) {
