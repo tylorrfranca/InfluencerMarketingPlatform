@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { LoginHeader } from "@/libs/components/LoginHeader";
-import { VStack } from "../../styled-system/jsx/vstack";
-import { Box } from "../../styled-system/jsx/box";
-import { Footer } from "@/libs/components/Footer"
+import { VStack } from "panda";
+import { Box } from "panda";
+import { Footer } from "@/libs/components/core/Footer"
 import { Providers } from "@/libs/utility/providers/Providers";
 const inter = Inter({ subsets: ["latin"] });
 

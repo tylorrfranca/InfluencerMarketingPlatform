@@ -1,18 +1,30 @@
-import Image from "next/image";
-import { VStack } from "panda";
-import { Heading } from "@radix-ui/themes";
-import { LoginHeader } from "@/libs/components/LoginHeader";
-import { LoginPage } from "@/libs/components/LoginPage";
+'use client'
+
+import {auth} from './../libs/firebase/config';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import SignUpPage  from "@/libs/pages/SignUp";
 import { Box } from "panda";
 
 
 export default function Home() {
-    return (
-        <Box>
-        <LoginHeader/>
-        <LoginPage/>
-        </Box>
+    const [user] = useAuthState(auth)
+    console.log({user})
 
-       
-    );
+    if(user){
+        return (
+        <>
+            <Box>
+            User Succesfully Logged In!
+            </Box>
+        </>
+        );
+    }
+    else{
+        return (
+        <>
+            <SignUpPage/>
+        </>
+        );  
+    }
 }
+
