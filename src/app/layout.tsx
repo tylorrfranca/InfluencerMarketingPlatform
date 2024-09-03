@@ -27,7 +27,6 @@ export default function RootLayout({
         overflowX={'hidden'}
         minHeight={'screen'}>
           {children}
-          <Footer/>
         </Box>
       </body>
     </html>
