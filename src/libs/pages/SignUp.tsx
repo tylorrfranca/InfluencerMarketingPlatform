@@ -24,7 +24,7 @@ const SignUp: React.FC = () => {
       setEmail('');
       setPassword('');
       //pushes user to main page 
-      router.push('/');
+      router.push('/Influencer');
     } catch (e) {
       console.error(e);
     }

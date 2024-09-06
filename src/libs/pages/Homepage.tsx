@@ -8,11 +8,13 @@ import Graph02 from '../components/features/Graph02';
 import { SideBlock } from '../components/core/SideBlocks';
 import LatestPosts from '../components/features/LatestPosts';
 import { useEffect, useState } from 'react';
-
+import { useAuthState } from 'react-firebase-hooks/auth';
+import {auth} from './../../libs/firebase/config';
 
 const HomePage = () => {
     const [isClient, setIsClient] = useState(false);
-
+    const [user, loading] = useAuthState(auth)
+    console.log(user);
     useEffect(() => {
         setIsClient(true); // Ensure client-side rendering is complete
     }, []);

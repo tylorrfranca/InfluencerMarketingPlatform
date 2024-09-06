@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { TextField, Button, Typography } from '@mui/material';
 import Link from 'next/link';
 
+
 const LogIn: React.FC = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -22,6 +23,7 @@ const LogIn: React.FC = () => {
             setEmail('');
             setPassword('');
             router.push('/');
+            console.log(user);
           }
         } catch (e) {
           console.error(e);
