@@ -2,25 +2,22 @@ import React from 'react';
 import { Box, HStack, VStack} from 'panda';
 import Image from 'next/image';
 import { Block } from '../core/Block';
-import { PinkBox } from '../core/PinkBlock';
-import { BlueBox } from '../core/BlueBlock';
-import { Followers } from '../sections/Followers';
-import { MatchPercentage } from '../sections/MatchPercentage';
-import { AccountsReached } from '../sections/AccountsReached';
-import { AvatarBox } from '../sections/AvatarBox';
-import { AccountEngangement } from '../sections/AcountEngangement';
+import Graph from '../features/Graph';
+import Graph02 from '../features/Graph02';
+import { SideBlock } from '../core/SideBlocks';
+import LatestPosts from '../features/LatestPosts';
+import UserProfileDD from '../features/UserProfileDD';
+
 
 
 const HomePage = () => {
   return (
-        <Box width= "100vw"
-        height={'100vh'}
+        <Box width= "100%"
+        height={'98%'}
         bgColor={'#2A263E'}
         display={'flex'}
         justifyContent={'center'}
         alignItems={'start'}
-        gap={50}
-        paddingTop={50}
         >
 
             <VStack 
@@ -45,7 +42,6 @@ const HomePage = () => {
                     cirColor= {false}>
 
                     </Block>
-
                     <Block color = {true}
                     title = "Accounts Reached"
                     info= "40k"
@@ -54,6 +50,11 @@ const HomePage = () => {
                     cirColor= {false}>
 
                     </Block>
+                </Box>
+                <Box
+                display={'flex'}
+                flexDir={'row'}
+                gap={50}>
                     <Block color = {false}
                     title = "Accounts Engagement"
                     info= "40k"
@@ -62,11 +63,7 @@ const HomePage = () => {
                     cirColor= {true}>
 
                     </Block>
-                </Box>
-                <Box
-                display={'flex'}
-                flexDir={'row'}
-                gap={50}>
+
                     <Block color = {false}
                     title = "Total Likes"
                     info= "40k"
@@ -84,6 +81,24 @@ const HomePage = () => {
                     cirColor= {true}>
 
                     </Block>
+                </Box>
+                <HStack>
+                 <Graph02/>
+                <VStack 
+                paddingX={10}
+                spaceY={25}>
+                <SideBlock title= "Likes" info = "5k"/>
+                <SideBlock title= "Comments" info = "5k"/>
+                <SideBlock title= "Share" info = "5k"/>
+                </VStack>
+
+                </HStack>
+                <Box
+                bgColor={'#2A263E'}
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'start'}>
+                <Box><LatestPosts/></Box>  
                 </Box>
             </VStack>
         </Box>
