@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import { Box, HStack, VStack} from 'panda';
 import Image from 'next/image';
@@ -6,11 +7,19 @@ import Graph from '../components/features/Graph';
 import Graph02 from '../components/features/Graph02';
 import { SideBlock } from '../components/core/SideBlocks';
 import LatestPosts from '../components/features/LatestPosts';
-import UserProfileDD from '../components/features/UserProfileDD';
-
+import { useEffect, useState } from 'react';
 
 
 const HomePage = () => {
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true); // Ensure client-side rendering is complete
+    }, []);
+
+    if (!isClient) {
+        return null; // Ensure no rendering until client-side hydration
+    }
   return (
         <Box width= "100%"
         height={'98%'}

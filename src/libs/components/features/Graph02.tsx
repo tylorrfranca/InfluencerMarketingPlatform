@@ -1,3 +1,5 @@
+
+import dynamic from 'next/dynamic';
 import * as React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import dayjs from 'dayjs'; // Ensure you have dayjs installed for date manipulation
