@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, HStack, VStack} from 'panda';
 import Image from 'next/image';
-import { Block } from '../core/Block';
-import Graph from '../features/Graph';
-import Graph02 from '../features/Graph02';
-import { SideBlock } from '../core/SideBlocks';
-import LatestPosts from '../features/LatestPosts';
-import UserProfileDD from '../features/UserProfileDD';
+import { Block } from '../components/core/Block';
+import Graph from '../components/features/Graph';
+import Graph02 from '../components/features/Graph02';
+import { SideBlock } from '../components/core/SideBlocks';
+import LatestPosts from '../components/features/LatestPosts';
+import UserProfileDD from '../components/features/UserProfileDD';
 
 
 

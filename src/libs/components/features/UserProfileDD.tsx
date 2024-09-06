@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Avatar, Menu, MenuItem, IconButton, Typography, Box } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-
+import {auth} from '../../firebase/config'
+import { signOut } from 'firebase/auth';
 export default function UserProfileDD() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -45,7 +46,9 @@ export default function UserProfileDD() {
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>Settings</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={() => {
+          signOut(auth)
+        }}>Logout</MenuItem>
       </Menu>
     </Box>
   );

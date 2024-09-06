@@ -1,20 +1,24 @@
 'use client'
 import React, { useState } from 'react';
-import { ChakraProvider, Box, Heading, Input, Button, FormControl, FormLabel, VStack } from '@chakra-ui/react';
+import { ChakraProvider, Box, Heading, Input, FormControl, FormLabel, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import {auth} from './../firebase/config';
+import {auth} from '../firebase/config';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Typography, TextField, Button } from '@mui/material';
 
-const SignUpPage: React.FC = () => {
+const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, loading] = useCreateUserWithEmailAndPassword(auth);
 
   const router = useRouter();
 
 
   //waits for email and pass word to be inputed and then updates firebase
-  const handleSignUp = async () => {
+  const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
       const res = await createUserWithEmailAndPassword(email, password);
       setEmail('');
@@ -27,54 +31,123 @@ const SignUpPage: React.FC = () => {
   };
 
   return (
-    <ChakraProvider>
-      <Box
-        width={'100vw'}
-        height={'90vh'}
-        display={'flex'}
-        alignItems={'center'}
-        justifyContent={'center'}
-        flexDirection={'column'}
-        marginTop={20}
-        gap={5}
-      >
-        <Heading as="h1" size="lg" textAlign="center">Sign Up for Scavenger Hunt Ai</Heading>
-        
+    <Box
+      width="100%"
+      height="100vh"
+      bgColor="#2A263E"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      paddingBottom={200}
+      flexDir="column"
+    >
+        <Image
+          src="/logo2.png"
+          alt="BrandSync"
+          width={400}
+          height={400}
+        />
         <Box
-          p={6}
-          maxWidth="400px"
-          borderWidth={1}
-          borderRadius="lg"
-          boxShadow="lg"
-          bg="white"
+          fontSize="xxx-large"
+          fontWeight="bold"
+          css={{
+            background: 'linear-gradient(90deg, #F1755F, #F15F9A)',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            color: 'transparent',
+          }}
+          paddingBottom={80}
         >
-          <VStack spacing={4} align="stretch">
-            <FormControl id="email" isRequired>
-              <FormLabel>Email</FormLabel>
-              <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                bg="gray.100"
-              />
-            </FormControl>
-            <FormControl id="password" isRequired>
-              <FormLabel>Password</FormLabel>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                bg="gray.100"
-              />
-            </FormControl>
-            <Button colorScheme="teal" onClick={handleSignUp}>Sign Up</Button>
-          </VStack>
+          BrandSync
         </Box>
-      </Box>
-    </ChakraProvider>
-  );
+        
+        <form onSubmit={handleSignUp}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "white",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "white",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white",
+                  },
+                },
+                input: { color: "white" }, // Change the input text color to white
+                label: { color: "white" }, // Change the label color to white
+              }}
+            />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "white",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "white",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white",
+                  },
+                },
+                input: { color: "white" }, // Change the input text color to white
+                label: { color: "white" }, // Change the label color to white
+              }}
+            />
+          <Box 
+          display={'flex'}
+          justifyContent={'center'}
+          alignItems={'center'}
+          flexDir={'column'}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={{ mt: 3, mb: 2 , background: 'linear-gradient(90deg, #F1755F, #F15F9A)', width:'200px'}}
+              >
+                {loading ? 'Signing Up...' : 'Sign Up'}
+              </Button>
+              <Link href="/loginpage">
+              <Typography
+                sx={{
+                textDecoration: 'underline', // Underline by default
+                color: 'inherit', // Keep the default color
+                '&:hover': {
+                    color: 'blue', // Change color to blue on hover
+                },
+                }}
+            >
+                {"Already have an account? Log In."}
+            </Typography>
+            </Link>
+          </Box>
+        </form>
+    </Box>
+);
 };
 
-export default SignUpPage;
+export default SignUp;

@@ -4,7 +4,9 @@ import {auth} from './../libs/firebase/config';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import SignUpPage  from "@/libs/pages/SignUp";
 import { Box } from "panda";
-import HomePage from '@/libs/components/pages/Homepage';
+import HomePage from '@/libs/pages/Homepage';
+import { FirstPage } from '@/libs/pages/FirstPage';
+import { Header } from '@/libs/components/core/Header';
 
 
 export default function Home() {
@@ -14,6 +16,7 @@ export default function Home() {
     if(user){
         return (
         <>
+            <Header/>
             <HomePage/>
         </>
         );
@@ -21,7 +24,7 @@ export default function Home() {
     else{
         return (
         <>
-            <SignUpPage/>
+            <FirstPage/>
         </>
         );  
     }
