@@ -27,24 +27,41 @@ const SignUp: React.FC = () => {
     const router = useRouter();
 
     const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+        const submitter = (event.nativeEvent as SubmitEvent).submitter as HTMLButtonElement;
         event.preventDefault();
         try {
             const res = await createUserWithEmailAndPassword(email, password);
 
             const userId = res?.user?.uid;
 
-            if (userId) {
-                await setDoc(doc(firestore, "users", userId), {
-                    email: email,
-                    password: password, 
-                    createdAt: new Date(),
-                });
+            if (submitter.name === 'Influencer') {
+                if (userId) {
+                    await setDoc(doc(firestore, "users", userId), {
+                        email: email,
+                        password: password, 
+                        createdAt: new Date(),
+                    });
+                }
+
+                setEmail("");
+                setPassword("");
+
+                router.push("/influencersurvey");
+
+            } else if(submitter.name === 'Buisness'){
+                if (userId) {
+                    await setDoc(doc(firestore, "users", userId), {
+                        email: email,
+                        password: password, 
+                        createdAt: new Date(),
+                    });
+                }
+                setEmail("");
+                setPassword("");
+
+                router.push("/buisnesssurvey");
             }
 
-            setEmail("");
-            setPassword("");
-
-            router.push("/influencersurvey");
         } catch (e) {
             console.error("Error signing up:", e);
         }
@@ -141,19 +158,41 @@ const SignUp: React.FC = () => {
                     justifyContent={"center"}
                     alignItems={"center"}
                     flexDir={"column"}>
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        sx={{
-                            mt: 3,
-                            mb: 2,
-                            background:
-                                "linear-gradient(90deg, #F1755F, #F15F9A)",
-                            width: "200px",
-                        }}>
-                        {loading ? "Signing Up..." : "Sign Up"}
-                    </Button>
+                    <Box
+                    display={"flex"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    flexDir={"row"}
+                    gap ={30}>
+                        <Button
+                            type="submit"
+                            name="Influencer"
+                            variant="contained"
+                            color="primary"
+                            sx={{
+                                mt: 3,
+                                mb: 2,
+                                background:
+                                    "linear-gradient(90deg, #F1755F, #F15F9A)",
+                                width: "200px",
+                            }}>
+                            {loading ? "Signing Up..." : "Influencer Sign Up"}
+                        </Button>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            name= "Buisness"
+                            color="primary"
+                            sx={{
+                                mt: 3,
+                                mb: 2,
+                                background:
+                                    "linear-gradient(90deg, #F1755F, #F15F9A)",
+                                width: "200px",
+                            }}>
+                            {loading ? "Signing Up..." : "Buisness Sign Up"}
+                        </Button>
+                    </Box>
                     <Link href="/loginpage">
                         <Typography
                             sx={{

@@ -7,8 +7,11 @@ import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
+interface UserProfileDDProps{
+  children: string
+}
 
-export default function UserProfileDD() {
+export default function UserProfileDD({children} : UserProfileDDProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const router = useRouter();
@@ -27,7 +30,7 @@ export default function UserProfileDD() {
       {/* User avatar and info */}
       <Avatar alt="Hazel kaya" src="/path-to-image" sx={{ width: 40, height: 40 }} />
       <Box ml={2}>
-        <Typography color="white" fontWeight="bold">Hazel Kaya</Typography>
+        <Typography color="white" fontWeight="bold">{children}</Typography>
         
         <Typography color="gray" fontSize={12}>Admin</Typography>
       </Box>

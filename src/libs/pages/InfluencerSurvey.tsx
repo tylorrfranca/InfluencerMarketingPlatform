@@ -7,6 +7,7 @@ import { getAuth } from "firebase/auth";
 import { setUserSurveyData } from "../firebase/firestoreService";
 
 export default function InfluencerSurvey() {
+    const [name, setName] = useState("");
     const [instagramName, setInstagramName] = useState("");
     const [genre, setGenre] = useState("");
     const [engagementRate, setEngagementRate] = useState("");
@@ -18,6 +19,7 @@ export default function InfluencerSurvey() {
 
     const handleSubmit = async () => {
         if (
+            !name ||
             !instagramName ||
             !genre ||
             !engagementRate ||
@@ -32,6 +34,7 @@ export default function InfluencerSurvey() {
         if (user) {
             try {
                 const surveyData = {
+                    name,
                     instagramName,
                     genre,
                     engagementRate,
@@ -40,7 +43,7 @@ export default function InfluencerSurvey() {
                 };
 
                 await setUserSurveyData(user.uid, surveyData);
-                router.push("/homepage");
+                router.push("/");
             } catch (error) {
                 console.error("Error saving survey:", error);
             }
@@ -69,6 +72,19 @@ export default function InfluencerSurvey() {
                 marginBottom={4}>
                 BrandSync
             </Box>
+
+            
+            <TextField
+                label="First and Last Name"
+                variant="outlined"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                sx={{
+                    backgroundColor: "white",
+                    marginBottom: 2,
+                    width: "300px",
+                }}
+            />
 
             <TextField
                 label="Instagram Name"
