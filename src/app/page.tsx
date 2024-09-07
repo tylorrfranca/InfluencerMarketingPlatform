@@ -18,8 +18,7 @@ export default function Home() {
     if (!loading && user) {
         return (
         <>
-        <Header/>
-        <HomePage/>
+        {router.push("./homepage")}
         </>
 
         );
