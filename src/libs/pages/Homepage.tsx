@@ -1,9 +1,7 @@
 'use client'
 import React from 'react';
 import { Box, HStack, VStack} from 'panda';
-import Image from 'next/image';
 import { Block } from '../components/core/Block';
-import Graph from '../components/features/Graph';
 import Graph02 from '../components/features/Graph02';
 import { SideBlock } from '../components/core/SideBlocks';
 import LatestPosts from '../components/features/LatestPosts';
