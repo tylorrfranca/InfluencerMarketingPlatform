@@ -1,242 +1,152 @@
 "use client";
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    Typography,
-    Chip,
-    Box,
-    Container,
-    Stack,
-    Link,
-} from "@mui/material";
-import { Globe, Target, ShoppingBag } from "lucide-react";
+import { Box, Button, TextField } from "@mui/material";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+// import { getAuth } from "firebase/auth";
+// import { setBusinessQueryData } from "../firebase/firestoreService";
 
-export default function BusinessDashboard() {
-    const businessData = {
-        name: "TechGadgets Inc.",
-        website: "https://techgadgets.com",
-        niche: "Consumer Electronics",
-        productTypes: ["Smartphones", "Laptops", "Wearables"],
-        targetAudience: {
-            age: "18-35",
-            location: "United States, Canada, UK",
-            interests: ["Technology", "Gaming", "Fitness"],
-        },
+export default function BusinessQuery() {
+    const [website, setWebsite] = useState<string>("");
+    const [niche, setNiche] = useState<string>("");
+    const [targetAudience, setTargetAudience] = useState<string>("");
+    const [productCategories, setProductCategories] = useState<string>("");
+    const [budget, setBudget] = useState<string>("");
+
+    const router = useRouter();
+    // const auth = getAuth();
+
+    const handleSubmit = async () => {
+        if (
+            !website ||
+            !niche ||
+            !targetAudience ||
+            !productCategories ||
+            !budget
+        ) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        // const user = auth.currentUser;
+        // if (user) {
+        try {
+            const queryData = {
+                website,
+                niche,
+                targetAudience,
+                productCategories,
+                budget,
+            };
+
+            // Simulating a successful data submission
+            console.log("Data submitted:", queryData);
+            router.push("/businessdashboard");
+        } catch (error) {
+            console.error("Error saving query:", error);
+        }
+        // } else {
+        //     alert("User not authenticated. Please log in.");
+        // }
     };
 
     return (
         <Box
+            width="100%"
+            height="100vh"
             sx={{
-                backgroundColor: "#2A263E", // Dark background for the entire screen
-                minHeight: "100vh", // Full viewport height
-                width: "100%", // Full width
+                backgroundColor: "#2A263E",
                 display: "flex",
-                flexDirection: "column",
+                justifyContent: "center",
                 alignItems: "center",
-                padding: 3,
-                boxSizing: "border-box", // Includes padding in width/height calculations
+                flexDirection: "column",
+                padding: 4,
             }}>
-            <Container>
-                <Box
-                    fontSize="xxx-large"
-                    fontWeight="bold"
-                    sx={{
-                        background: "linear-gradient(90deg, #F1755F, #F15F9A)",
-                        WebkitTextFillColor: "transparent",
-                        backgroundClip: "text",
-                        color: "transparent",
-                        marginBottom: 4,
-                    }}>
-                    Business Dashboard
-                </Box>
+            <Box
+                fontSize="xxx-large"
+                fontWeight="bold"
+                sx={{
+                    background: "linear-gradient(90deg, #F1755F, #F15F9A)",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    color: "transparent",
+                    marginBottom: 4,
+                }}>
+                BrandSync
+            </Box>
+            <TextField
+                label="Website"
+                variant="outlined"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                sx={{
+                    backgroundColor: "white",
+                    marginBottom: 2,
+                    width: "300px",
+                }}
+            />
 
-                <Stack
-                    spacing={4}
-                    direction={{ xs: "column", md: "row" }}
-                    sx={{ width: "100%" }}>
-                    <Card
-                        sx={{
-                            flex: 1,
-                            minWidth: 0,
-                            backgroundColor: "#FFFFFF", // Background color inside the card
-                            padding: 2,
-                        }}>
-                        <CardHeader
-                            title={
-                                <Typography variant="h5">
-                                    Business Information
-                                </Typography>
-                            }
-                            subheader={
-                                <Typography variant="subtitle2">
-                                    Overview of your brand and products
-                                </Typography>
-                            }
-                            sx={{ backgroundColor: "#F5F5F5" }}
-                        />
-                        <CardContent>
-                            <Box sx={{ mb: 2 }}>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                    }}>
-                                    <Globe
-                                        size={20}
-                                        style={{
-                                            marginRight: 8,
-                                            color: "#9e9e9e",
-                                        }}
-                                    />
-                                    <Link
-                                        href={businessData.website}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        variant="body2"
-                                        color="primary">
-                                        {businessData.website}
-                                    </Link>
-                                </Box>
-                            </Box>
-                            <Box sx={{ mb: 2 }}>
-                                <Typography
-                                    variant="h6"
-                                    component="h3"
-                                    gutterBottom>
-                                    Niche
-                                </Typography>
-                                <Typography>{businessData.niche}</Typography>
-                            </Box>
-                            <Box>
-                                <Typography
-                                    variant="h6"
-                                    component="h3"
-                                    gutterBottom>
-                                    Product Types
-                                </Typography>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: 1,
-                                    }}>
-                                    {businessData.productTypes.map(
-                                        (product, index) => (
-                                            <Chip
-                                                key={index}
-                                                label={
-                                                    <Box
-                                                        sx={{
-                                                            display: "flex",
-                                                            alignItems:
-                                                                "center",
-                                                        }}>
-                                                        <ShoppingBag
-                                                            size={16}
-                                                            style={{
-                                                                marginRight: 4,
-                                                            }}
-                                                        />
-                                                        {product}
-                                                    </Box>
-                                                }
-                                                color="primary"
-                                            />
-                                        ),
-                                    )}
-                                </Box>
-                            </Box>
-                        </CardContent>
-                    </Card>
+            <TextField
+                label="Niche"
+                variant="outlined"
+                value={niche}
+                onChange={(e) => setNiche(e.target.value)}
+                sx={{
+                    backgroundColor: "white",
+                    marginBottom: 2,
+                    width: "300px",
+                }}
+            />
 
-                    <Card
-                        sx={{
-                            flex: 1,
-                            minWidth: 0,
-                            backgroundColor: "#FFFFFF", // Background color inside the card
-                            padding: 2,
-                        }}>
-                        <CardHeader
-                            title={
-                                <Typography variant="h5">
-                                    Target Audience
-                                </Typography>
-                            }
-                            subheader={
-                                <Typography variant="subtitle2">
-                                    Demographics and interests of your ideal
-                                    customers
-                                </Typography>
-                            }
-                            sx={{ backgroundColor: "#F5F5F5" }}
-                        />
-                        <CardContent>
-                            <Box sx={{ mb: 2 }}>
-                                <Typography
-                                    variant="h6"
-                                    component="h3"
-                                    gutterBottom>
-                                    Age Range
-                                </Typography>
-                                <Typography>
-                                    {businessData.targetAudience.age}
-                                </Typography>
-                            </Box>
-                            <Box sx={{ mb: 2 }}>
-                                <Typography
-                                    variant="h6"
-                                    component="h3"
-                                    gutterBottom>
-                                    Location
-                                </Typography>
-                                <Typography>
-                                    {businessData.targetAudience.location}
-                                </Typography>
-                            </Box>
-                            <Box>
-                                <Typography
-                                    variant="h6"
-                                    component="h3"
-                                    gutterBottom>
-                                    Interests
-                                </Typography>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: 1,
-                                    }}>
-                                    {businessData.targetAudience.interests.map(
-                                        (interest, index) => (
-                                            <Chip
-                                                key={index}
-                                                label={
-                                                    <Box
-                                                        sx={{
-                                                            display: "flex",
-                                                            alignItems:
-                                                                "center",
-                                                        }}>
-                                                        <Target
-                                                            size={16}
-                                                            style={{
-                                                                marginRight: 4,
-                                                            }}
-                                                        />
-                                                        {interest}
-                                                    </Box>
-                                                }
-                                                variant="outlined"
-                                            />
-                                        ),
-                                    )}
-                                </Box>
-                            </Box>
-                        </CardContent>
-                    </Card>
-                </Stack>
-            </Container>
+            <TextField
+                label="Target Audience"
+                variant="outlined"
+                value={targetAudience}
+                onChange={(e) => setTargetAudience(e.target.value)}
+                sx={{
+                    backgroundColor: "white",
+                    marginBottom: 2,
+                    width: "300px",
+                }}
+            />
+
+            <TextField
+                label="Product Categories"
+                variant="outlined"
+                value={productCategories}
+                onChange={(e) => setProductCategories(e.target.value)}
+                sx={{
+                    backgroundColor: "white",
+                    marginBottom: 2,
+                    width: "300px",
+                }}
+            />
+
+            <TextField
+                label="Budget"
+                variant="outlined"
+                type="number"
+                value={budget}
+                onChange={(e) => setBudget(e.target.value)}
+                sx={{
+                    backgroundColor: "white",
+                    marginBottom: 2,
+                    width: "300px",
+                }}
+            />
+
+            <Button
+                onClick={handleSubmit}
+                sx={{
+                    background: "linear-gradient(90deg, #F1755F, #F15F9A)",
+                    color: "white",
+                    width: "300px",
+                    marginTop: 2,
+                    "&:hover": {
+                        background: "linear-gradient(90deg, #F15F9A, #F1755F)",
+                    },
+                }}>
+                Submit
+            </Button>
         </Box>
     );
 }
