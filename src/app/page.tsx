@@ -15,18 +15,22 @@ export default function Home() {
     console.log({user})
     const router = useRouter(); 
 
-    useEffect(() => {
-        if (!loading && user) {
-            router.push('/homepage');
-        }
-    }, [loading, user, router]);
+    if (!loading && user) {
+        return (
+        <>
+        <Header/>
+        <HomePage/>
+        </>
+
+        );
+    }
     
     if (loading) {
-        return <div>Loading...</div>;  // Ensure the same content is rendered on both server and client during loading
+        return <div>Loading...</div>
     }
     
     if (!user) {
-        return <FirstPage />;  // Render the login/signup page if not authenticated
+        return <FirstPage />
     }
     
     return null;

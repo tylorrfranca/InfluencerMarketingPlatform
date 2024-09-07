@@ -4,9 +4,15 @@ import { Avatar, Menu, MenuItem, IconButton, Typography, Box } from '@mui/materi
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {auth} from '../../firebase/config'
 import { signOut } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
+
 export default function UserProfileDD() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const router = useRouter();
+  const [user, loading] = useAuthState(auth)
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -48,7 +54,8 @@ export default function UserProfileDD() {
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>Settings</MenuItem>
         <MenuItem onClick={() => {
-          signOut(auth)
+          signOut(auth), router.push("/")
+          console.log(user)
         }}>Logout</MenuItem>
       </Menu>
     </Box>
