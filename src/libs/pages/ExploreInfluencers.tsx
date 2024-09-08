@@ -113,209 +113,236 @@ Best regards,
     return (
         <Box
             sx={{
-                width: "100%",
-                maxWidth: 1200,
-                margin: "auto",
-                padding: 2,
+                minHeight: "100vh", // Full screen height
+                backgroundColor: "#2A263E", // Same background color
+                padding: 4,
             }}>
-            <Typography
-                variant="h4"
-                gutterBottom>
-                Explore Influencers
-            </Typography>
-
             <Box
                 sx={{
-                    display: "grid",
-                    gridTemplateColumns: {
-                        xs: "1fr",
-                        md: "1fr 1fr",
-                        lg: "1fr 1fr 1fr 1fr",
-                    },
-                    gap: 2,
-                    marginBottom: 4,
+                    width: "100%",
+                    maxWidth: 1200,
+                    margin: "auto",
                 }}>
-                <FormControl
-                    variant="outlined"
-                    fullWidth>
-                    <InputLabel htmlFor="niche">Niche</InputLabel>
-                    <TextField
-                        id="niche"
-                        value={niche}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setNiche(e.target.value)
-                        }
-                        placeholder="e.g. Beauty, Tech"
-                        variant="outlined"
-                        label="Niche"
-                    />
-                </FormControl>
-                <FormControl
-                    variant="outlined"
-                    fullWidth>
-                    <InputLabel htmlFor="targetAudience">
-                        Target Audience
-                    </InputLabel>
-                    <TextField
-                        id="targetAudience"
-                        value={targetAudience}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setTargetAudience(e.target.value)
-                        }
-                        placeholder="e.g. 18-24, US"
-                        variant="outlined"
-                        label="Target Audience"
-                    />
-                </FormControl>
-                <FormControl
-                    variant="outlined"
-                    fullWidth>
-                    <InputLabel htmlFor="budget">Budget</InputLabel>
-                    <TextField
-                        id="budget"
-                        value={budget}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                            setBudget(e.target.value)
-                        }
-                        placeholder="e.g. $500-$1000"
-                        variant="outlined"
-                        label="Budget"
-                    />
-                </FormControl>
-                <FormControl
-                    variant="outlined"
-                    fullWidth>
-                    <InputLabel htmlFor="promotionType">
-                        Promotion Type
-                    </InputLabel>
-                    <Select
-                        id="promotionType"
-                        value={promotionType}
-                        onChange={(e) =>
-                            setPromotionType(e.target.value as string)
-                        }
-                        label="Promotion Type">
-                        <MenuItem value="product">Product Giveaway</MenuItem>
-                        <MenuItem value="sponsored">Sponsored Post</MenuItem>
-                        <MenuItem value="affiliate">
-                            Affiliate Marketing
-                        </MenuItem>
-                    </Select>
-                </FormControl>
-            </Box>
+                <Typography
+                    variant="h4"
+                    color="white"
+                    gutterBottom>
+                    Explore Influencers
+                </Typography>
 
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSearch}
-                sx={{ marginBottom: 4 }}>
-                Find Influencers
-            </Button>
-
-            {influencers.length > 0 && (
-                <>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            marginBottom: 4,
-                        }}>
-                        <Typography variant="h6">
-                            Matched Influencers
-                        </Typography>
-                        <FormControl
+                <Box
+                    sx={{
+                        display: "grid",
+                        gridTemplateColumns: {
+                            xs: "1fr",
+                            md: "1fr 1fr",
+                            lg: "1fr 1fr 1fr 1fr",
+                        },
+                        gap: 2,
+                        marginBottom: 4,
+                    }}>
+                    <FormControl
+                        variant="outlined"
+                        fullWidth>
+                        <TextField
+                            id="niche"
+                            value={niche}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                setNiche(e.target.value)
+                            }
                             variant="outlined"
-                            sx={{ minWidth: 180 }}>
-                            <InputLabel htmlFor="sortOrder">
-                                Sort by followers
-                            </InputLabel>
-                            <Select
-                                id="sortOrder"
-                                value={sortOrder}
-                                onChange={(e) =>
-                                    setSortOrder(
-                                        e.target.value as "asc" | "desc",
-                                    )
-                                }
-                                label="Sort by followers">
-                                <MenuItem value="asc">
-                                    Followers (Low to High)
-                                </MenuItem>
-                                <MenuItem value="desc">
-                                    Followers (High to Low)
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                    <Box
-                        sx={{
-                            display: "grid",
-                            gridTemplateColumns: {
-                                xs: "1fr",
-                                md: "1fr 1fr",
-                                lg: "1fr 1fr 1fr",
-                            },
-                            gap: 2,
-                        }}>
-                        {sortedInfluencers.map((influencer) => (
-                            <Card
-                                key={influencer.id}
-                                sx={{
-                                    backgroundColor: "black",
-                                    color: "white",
-                                }}>
-                                <CardHeader
-                                    title={influencer.name}
-                                    sx={{ backgroundColor: "#3A3A3A" }}
-                                />
-                                <CardContent>
-                                    <Typography variant="body1">
-                                        Followers:{" "}
-                                        {influencer.followers.toLocaleString()}
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        Niche: {influencer.niche}
-                                    </Typography>
-                                    <Typography variant="body1">
-                                        Engagement Rate: {influencer.engagement}
-                                        %
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button
-                                        variant="outlined"
-                                        color="inherit"
-                                        href={influencer.videoUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer">
-                                        View Sample Video
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={() =>
-                                            generateEmail(influencer)
-                                        }>
-                                        Generate Email
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                        ))}
-                    </Box>
-                </>
-            )}
+                            label="Niche"
+                            InputLabelProps={{ style: { color: "white" } }}
+                            InputProps={{
+                                style: { color: "white" }, // White text in TextField
+                            }}
+                        />
+                    </FormControl>
 
-            {emailContent && selectedInfluencer && (
+                    <FormControl
+                        variant="outlined"
+                        fullWidth>
+                        <TextField
+                            id="targetAudience"
+                            value={targetAudience}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                setTargetAudience(e.target.value)
+                            }
+                            variant="outlined"
+                            label="Target Audience"
+                            InputLabelProps={{ style: { color: "white" } }}
+                            InputProps={{
+                                style: { color: "white" },
+                            }}
+                        />
+                    </FormControl>
+
+                    <FormControl
+                        variant="outlined"
+                        fullWidth>
+                        <TextField
+                            id="budget"
+                            value={budget}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                setBudget(e.target.value)
+                            }
+                            variant="outlined"
+                            label="Budget"
+                            InputLabelProps={{ style: { color: "white" } }}
+                            InputProps={{
+                                style: { color: "white" },
+                            }}
+                        />
+                    </FormControl>
+
+                    <FormControl
+                        variant="outlined"
+                        fullWidth>
+                        <InputLabel
+                            htmlFor="promotionType"
+                            sx={{ color: "white" }}>
+                            Promotion Type
+                        </InputLabel>
+                        <Select
+                            id="promotionType"
+                            value={promotionType}
+                            onChange={(e) =>
+                                setPromotionType(e.target.value as string)
+                            }
+                            label="Promotion Type"
+                            sx={{ color: "white" }}>
+                            <MenuItem value="product">
+                                Product Giveaway
+                            </MenuItem>
+                            <MenuItem value="sponsored">
+                                Sponsored Post
+                            </MenuItem>
+                            <MenuItem value="affiliate">
+                                Affiliate Marketing
+                            </MenuItem>
+                        </Select>
+                    </FormControl>
+                </Box>
+
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSearch}
+                    sx={{ marginBottom: 4 }}>
+                    Find Influencers
+                </Button>
+
+                {influencers.length > 0 && (
+                    <>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                marginBottom: 4,
+                            }}>
+                            <Typography
+                                variant="h6"
+                                color="white">
+                                Matched Influencers
+                            </Typography>
+                            <FormControl
+                                variant="outlined"
+                                sx={{ minWidth: 180 }}>
+                                <InputLabel
+                                    htmlFor="sortOrder"
+                                    sx={{ color: "white" }}>
+                                    Sort by followers
+                                </InputLabel>
+                                <Select
+                                    id="sortOrder"
+                                    value={sortOrder}
+                                    onChange={(e) =>
+                                        setSortOrder(
+                                            e.target.value as "asc" | "desc",
+                                        )
+                                    }
+                                    label="Sort by followers"
+                                    sx={{ color: "white" }}>
+                                    <MenuItem value="asc">
+                                        Followers (Low to High)
+                                    </MenuItem>
+                                    <MenuItem value="desc">
+                                        Followers (High to Low)
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+
+                        <Box
+                            sx={{
+                                display: "grid",
+                                gridTemplateColumns: {
+                                    xs: "1fr",
+                                    md: "1fr 1fr",
+                                    lg: "1fr 1fr 1fr",
+                                },
+                                gap: 2,
+                            }}>
+                            {sortedInfluencers.map((influencer) => (
+                                <Card
+                                    key={influencer.id}
+                                    sx={{
+                                        backgroundColor: "white", // Card background: Black
+                                        color: "black", // Card text color: White
+                                    }}>
+                                    <CardHeader
+                                        title={influencer.name}
+                                        sx={{
+                                            backgroundColor: "#3A3A3A",
+                                            color: "white",
+                                        }}
+                                    />
+                                    <CardContent>
+                                        <Typography
+                                            variant="body1"
+                                            color="BLACK">
+                                            Followers:{" "}
+                                            {influencer.followers.toLocaleString()}
+                                        </Typography>
+                                        <Typography
+                                            variant="body1"
+                                            color="black">
+                                            Niche: {influencer.niche}
+                                        </Typography>
+                                        <Typography
+                                            variant="body1"
+                                            color="clack">
+                                            Engagement Rate:{" "}
+                                            {influencer.engagement}%
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={() =>
+                                                generateEmail(influencer)
+                                            }>
+                                            Generate Email
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            ))}
+                        </Box>
+                    </>
+                )}
+
                 <Dialog
                     open={!!emailContent}
-                    onClose={handleClose}
-                    aria-labelledby="email-dialog-title">
-                    <DialogTitle id="email-dialog-title">
-                        Email to {selectedInfluencer.name}
+                    onClose={handleClose}>
+                    <DialogTitle color="white">
+                        Pre-Populated Email to {selectedInfluencer?.name}
                     </DialogTitle>
                     <DialogContent>
-                        <DialogContentText>{emailContent}</DialogContentText>
+                        <DialogContentText sx={{ whiteSpace: "pre-wrap" }}>
+                            {emailContent}
+                        </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button
@@ -325,7 +352,7 @@ Best regards,
                         </Button>
                     </DialogActions>
                 </Dialog>
-            )}
+            </Box>
         </Box>
     );
 }
