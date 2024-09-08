@@ -19,6 +19,7 @@ import {
     DialogContentText,
     DialogActions,
 } from "@mui/material";
+import axios from "axios";
 
 type Influencer = {
     id: string;
@@ -109,6 +110,16 @@ Best regards,
             ? a.followers - b.followers
             : b.followers - a.followers,
     );
+
+    const handleRecommendation = async () => {
+        try {
+            const response = await axios.post("http://localhost:5000/recommend");
+            // Assuming the backend returns a list of recommended influencer IDs
+            console.log(response.data); // Handle the response as needed
+        } catch (error) {
+            console.error("Error fetching recommendations:", error);
+        }
+    };
 
     return (
         <Box
@@ -210,6 +221,14 @@ Best regards,
                 onClick={handleSearch}
                 sx={{ marginBottom: 4 }}>
                 Find Influencers
+            </Button>
+
+            <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleRecommendation}
+                sx={{ marginBottom: 4 }}>
+                Get Recommendations
             </Button>
 
             {influencers.length > 0 && (

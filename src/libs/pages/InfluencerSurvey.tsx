@@ -40,6 +40,8 @@ export default function InfluencerSurvey() {
                     engagementRate,
                     followerCount,
                     compensation,
+                    influencer: true
+
                 };
 
                 await setUserSurveyData(user.uid, surveyData);

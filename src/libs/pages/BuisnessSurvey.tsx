@@ -40,6 +40,8 @@ export default function BuisnessSurvey() {
                     engagementRate,
                     followerCount,
                     compensation,
+                    influencer: false
+           
                 };
 
                 await setUserSurveyData(user.uid, surveyData);
